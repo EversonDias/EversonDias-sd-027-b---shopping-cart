@@ -1,16 +1,15 @@
 import { searchCep } from './helpers/cepFunctions';
 import { fetchProductsList } from './helpers/fetchFunctions';
 import { createProductElement } from './helpers/shopFunctions';
+import { loading } from './module/loading';
 import './style.css';
-import { Loader } from './tools/loader';
+
 
 document.querySelector('.cep-button').addEventListener('click', searchCep);
 
-Loader.open()
+loading.open()
 
 const fullProductList = await fetchProductsList('computador');
-
-Loader.close()
 
 fullProductList.forEach(data => {
   document.querySelector('.products')
@@ -25,3 +24,4 @@ fullProductList.forEach(data => {
       ));
 })
 
+loading.close()
