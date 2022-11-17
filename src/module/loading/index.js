@@ -1,6 +1,6 @@
 import './loading.css';
-export const loading = {
 
+const loading = {
   open: () => {
     const div = document.createElement('div');
     div.classList.add('loading');
@@ -8,6 +8,8 @@ export const loading = {
     document.querySelector('.container').appendChild(div);
   },
   close: () => {
-    document.querySelector('.loading').style.display = 'none'
-  }
-}
+    document.querySelector('.loading').style.display = 'none';
+  },
+};
+
+export default loading;
