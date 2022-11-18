@@ -1,12 +1,10 @@
 import { searchCep } from './helpers/cepFunctions';
-import { fetchProductsList, fetchProduct } from './helpers/fetchFunctions';
+import { fetchProductsList } from './helpers/fetchFunctions';
 import { createProductElement } from './helpers/shopFunctions';
 import tools from './helpers/toolsFunctions';
 import loading from './module/loading';
 import popUp from './module/popUp';
 import './style.css';
-
-
 
 document.querySelector('.cep-button').addEventListener('click', searchCep);
 
@@ -17,17 +15,16 @@ try {
 
   fullProductList.forEach((data) => {
     const products = document.querySelector('.products');
-      products.appendChild(
-        createProductElement(
-          {
-            id: data.id,
-            title: data.title,
-            thumbnail: data.thumbnail,
-            price: data.price,
-          },
-        ),
-      );
-      
+    products.appendChild(
+      createProductElement(
+        {
+          id: data.id,
+          title: data.title,
+          thumbnail: data.thumbnail,
+          price: data.price,
+        },
+      ),
+    );
   });
 } catch (error) {
   loading.close();
@@ -37,6 +34,6 @@ try {
 loading.close();
 
 const btnAddCart = document.getElementsByClassName('product__add');
-for(let index = 0; index < btnAddCart.length; index++) {
+for (let index = 0; index < btnAddCart.length; index += 1) {
   btnAddCart[index].addEventListener('click', tools.addCart);
 }
