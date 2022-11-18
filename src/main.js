@@ -12,6 +12,7 @@ loading.open();
 
 try {
   const fullProductList = await fetchProductsList('computador');
+  loading.close();
   tools.getSavedAndCreate();
   fullProductList.forEach((data) => {
     const products = document.querySelector('.products');
@@ -26,9 +27,17 @@ try {
   popUp('Algum erro ocorreu, recarregue a página e tente novamente');
 }
 
-loading.close();
-
 const btnAddCart = document.getElementsByClassName('product__add');
 for (let index = 0; index < btnAddCart.length; index += 1) {
   btnAddCart[index].addEventListener('click', tools.addCart);
 }
+
+const getCep = document.querySelector('.cep-input');
+const btn = document.querySelector('.cep-button');
+btn.disabled = true;
+const number = 8;
+getCep.addEventListener('input', (litter) => {
+  if (litter.target.value.length === number) {
+    btn.disabled = false;
+  } else btn.disabled = true;
+});
