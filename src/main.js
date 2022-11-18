@@ -1,9 +1,12 @@
 import { searchCep } from './helpers/cepFunctions';
 import { fetchProductsList, fetchProduct } from './helpers/fetchFunctions';
 import { createProductElement } from './helpers/shopFunctions';
+import tools from './helpers/toolsFunctions';
 import loading from './module/loading';
 import popUp from './module/popUp';
 import './style.css';
+
+
 
 document.querySelector('.cep-button').addEventListener('click', searchCep);
 
@@ -13,8 +16,8 @@ try {
   const fullProductList = await fetchProductsList('computador');
 
   fullProductList.forEach((data) => {
-    document.querySelector('.products')
-      .appendChild(
+    const products = document.querySelector('.products');
+      products.appendChild(
         createProductElement(
           {
             id: data.id,
@@ -24,6 +27,7 @@ try {
           },
         ),
       );
+      
   });
 } catch (error) {
   loading.close();
@@ -31,3 +35,8 @@ try {
 }
 
 loading.close();
+
+const btnAddCart = document.getElementsByClassName('product__add');
+for(let index = 0; index < btnAddCart.length; index++) {
+  btnAddCart[index].addEventListener('click', tools.addCart);
+}
