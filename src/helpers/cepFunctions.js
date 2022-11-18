@@ -7,7 +7,7 @@ export const getAddress = (cep) => {
 
   const res = Promise.any(promises)
     .then((data) => data.json())
-    .then((cep) => `${cep.address} - ${cep.district} - ${cep.city} - ${cep.state}`);
+    .then((data) => `${data.address} - ${data.district} - ${data.city} - ${data.state}`);
   return res;
 };
 
