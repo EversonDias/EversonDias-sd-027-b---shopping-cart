@@ -1,3 +1,6 @@
+import { fetchProduct } from './fetchFunctions';
+import tools from './toolsFunctions';
+
 /**
  * Função que retorna todos os itens do carrinho salvos no localStorage.
  * @returns {Array} Itens de ids salvos do carrinho ou array vazio.
@@ -25,6 +28,11 @@ export const saveCartID = (id) => {
  */
 export const removeCartID = (id) => {
   if (!id) throw new Error('Você deve fornecer um ID');
+
+  fetchProduct(id)
+    .then((data) => {
+      tools.addTotalPrice(data.price, 'remover');
+    });
 
   const cartProducts = getSavedCartIDs();
   const newCartProducts = cartProducts.filter((product) => product !== id);

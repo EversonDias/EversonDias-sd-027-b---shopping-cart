@@ -3,6 +3,12 @@ import { fetchProduct } from './fetchFunctions';
 import { createCartProductElement } from './shopFunctions';
 
 const tools = {
+  addTotalPrice: (data, type) => {
+    const totalPrice = document.querySelector('.total-price');
+    const currentPrice = Number(totalPrice.innerHTML);
+    const newCurrentPrice = type === 'add' ? currentPrice + data : currentPrice - data;
+    totalPrice.innerHTML = newCurrentPrice;
+  },
   createObject: (data, key) => (
     {
       [key[0]]: data[key[0]],
@@ -16,6 +22,7 @@ const tools = {
     saveCartID(itemId);
     fetchProduct(itemId)
       .then((data) => {
+        tools.addTotalPrice(data.price, 'add');
         document.querySelector('.cart__products')
           .appendChild(
             createCartProductElement(
@@ -30,6 +37,7 @@ const tools = {
     saveCard.forEach((item) => {
       fetchProduct(item)
         .then((data) => {
+          tools.addTotalPrice(data.price, 'add');
           CartProducts.appendChild(
             createCartProductElement(
               tools.createObject(data, ['id', 'title', 'price', 'pictures']),
