@@ -1,5 +1,4 @@
 import { fetchProduct } from './fetchFunctions';
-import tools from './toolsFunctions';
 
 /**
  * Função que retorna todos os itens do carrinho salvos no localStorage.
@@ -22,6 +21,13 @@ export const saveCartID = (id) => {
   localStorage.setItem('cartProducts', JSON.stringify(newCartProducts));
 };
 
+export const addTotalPrice = (data, type) => {
+  const totalPrice = document.querySelector('.total-price');
+  const currentPrice = Number(totalPrice.innerHTML);
+  const newCurrentPrice = type === 'add' ? currentPrice + data : currentPrice - data;
+  totalPrice.innerHTML = newCurrentPrice;
+};
+
 /**
  * Função que remove um product do carrinho.
  * @param {string} id - ID do product a ser removido.
@@ -31,7 +37,7 @@ export const removeCartID = (id) => {
 
   fetchProduct(id)
     .then((data) => {
-      tools.addTotalPrice(data.price, 'remover');
+      addTotalPrice(data.price, 'remover');
     });
 
   const cartProducts = getSavedCartIDs();
