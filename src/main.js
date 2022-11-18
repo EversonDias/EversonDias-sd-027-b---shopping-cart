@@ -12,17 +12,12 @@ loading.open();
 
 try {
   const fullProductList = await fetchProductsList('computador');
-
+  tools.getSavedAndCreate();
   fullProductList.forEach((data) => {
     const products = document.querySelector('.products');
     products.appendChild(
       createProductElement(
-        {
-          id: data.id,
-          title: data.title,
-          thumbnail: data.thumbnail,
-          price: data.price,
-        },
+        tools.createObject(data, ['id', 'title', 'price', 'thumbnail']),
       ),
     );
   });
