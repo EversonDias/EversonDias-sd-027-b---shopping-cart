@@ -6,7 +6,8 @@ export const getAddress = (cep) => {
   const promises = [promiseCepApi, promiseBrasilApi];
 
   const res = Promise.any(promises)
-    .then((data) => data.json());
+    .then((data) => data.json())
+    .then((cep) => `${cep.address} - ${cep.district} - ${cep.city} - ${cep.state}`);
   return res;
 };
 
@@ -16,10 +17,9 @@ export const searchCep = async (event) => {
   const labelAddress = document.querySelector('.cart__address');
   const cep = await getAddress(getCep.value);
 
-  if (Object.keys(cep).includes('code')) {
+  if (cep === 'undefined - undefined - undefined - undefined') {
     labelAddress.innerHTML = 'CEP não encontrado';
-    throw new Error(cep.message);
+    throw new Error('CEP não encontrado');
   }
-  const message = `${cep.address} - ${cep.district} - ${cep.city} - ${cep.state}`;
-  labelAddress.innerHTML = message;
+  labelAddress.innerHTML = cep;
 };
