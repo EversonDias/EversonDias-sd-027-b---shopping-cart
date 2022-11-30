@@ -15,11 +15,17 @@ export const searchCep = async (event) => {
   event.preventDefault();
   const getCep = document.querySelector('.cep-input');
   const labelAddress = document.querySelector('.cart__address');
+  const msg = 'CEP não encontrado';
+  if (!Number(getCep.value)) {
+    labelAddress.innerHTML = msg;
+    return;
+  }
+
   const cep = await getAddress(getCep.value);
 
   if (cep === 'undefined - undefined - undefined - undefined') {
-    labelAddress.innerHTML = 'CEP não encontrado';
-    throw new Error('CEP não encontrado');
+    labelAddress.innerHTML = msg;
+    throw new Error(msg);
   }
   labelAddress.innerHTML = cep;
 };
