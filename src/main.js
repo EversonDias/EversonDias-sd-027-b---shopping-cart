@@ -29,7 +29,8 @@ try {
 
 const btnAddCart = document.getElementsByClassName('product__add');
 for (let index = 0; index < btnAddCart.length; index += 1) {
-  btnAddCart[index].addEventListener('click', tools.addCart);
+  const productId = document.getElementsByClassName('product__id');
+  btnAddCart[index].addEventListener('click', () => tools.addCart(productId[index]));
 }
 
 const getCep = document.querySelector('.cep-input');

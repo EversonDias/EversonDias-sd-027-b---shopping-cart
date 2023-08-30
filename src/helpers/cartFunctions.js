@@ -21,12 +21,16 @@ export const saveCartID = (id) => {
   localStorage.setItem('cartProducts', JSON.stringify(newCartProducts));
 };
 
-export const addTotalPrice = (data, type) => {
+export const handleTotalPrice = (newPrice, type) => {
   const totalPrice = document.querySelector('.total-price');
-  const currentPrice = Number(totalPrice.innerHTML);
-  const newCurrentPrice = type === 'add' ? currentPrice + data : currentPrice - data;
-  totalPrice.innerHTML = newCurrentPrice;
-};
+  let currentPrice = parseFloat(totalPrice.innerHTML);
+  if (type === 'add') {
+    currentPrice += newPrice
+  } else (
+    currentPrice -= newPrice
+    )
+  totalPrice.innerHTML = currentPrice.toFixed(2);
+}
 
 /**
  * Função que remove um product do carrinho.
@@ -37,7 +41,7 @@ export const removeCartID = (id) => {
 
   fetchProduct(id)
     .then((data) => {
-      addTotalPrice(data.price, 'remover');
+      handleTotalPrice(data.price, 'remover');
     });
 
   const cartProducts = getSavedCartIDs();

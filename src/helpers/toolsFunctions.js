@@ -1,4 +1,4 @@
-import { saveCartID, getSavedCartIDs, addTotalPrice } from './cartFunctions';
+import { saveCartID, getSavedCartIDs, handleTotalPrice } from './cartFunctions';
 import { fetchProduct } from './fetchFunctions';
 import { createCartProductElement } from './shopFunctions';
 
@@ -11,12 +11,12 @@ const tools = {
       [key[3]]: data[key[3]],
     }
   ),
-  addCart: async (item) => {
-    const itemId = item.path[1].firstChild.innerHTML;
+  addCart: (item) => {
+    const itemId = item.innerHTML;
     saveCartID(itemId);
     fetchProduct(itemId)
       .then((data) => {
-        addTotalPrice(data.price, 'add');
+        handleTotalPrice(data.price, 'add');
         document.querySelector('.cart__products')
           .appendChild(
             createCartProductElement(
@@ -31,7 +31,7 @@ const tools = {
     saveCard.forEach((item) => {
       fetchProduct(item)
         .then((data) => {
-          addTotalPrice(data.price, 'add');
+          handleTotalPrice(data.price, 'add');
           CartProducts.appendChild(
             createCartProductElement(
               tools.createObject(data, ['id', 'title', 'price', 'pictures']),
