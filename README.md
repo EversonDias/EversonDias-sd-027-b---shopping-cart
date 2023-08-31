@@ -40,7 +40,7 @@ Para acessar e executar este projeto, siga os passos abaixo:
 2. Clone o Projeto
 
 ```bash
-git clone https://github.com/EversonDias/Project_Trybe_HTML_CSS_JavaScript_and_Vite_Shopping_Cart.git ShoppingCart
+git clone https://github.com/EversonDias/Shopping_Cart_with_HTML_CSS_JavaScript_and_Vite.git ShoppingCart
 ```
 
 3. Entre no projeto
